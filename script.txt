@@ -7,6 +7,8 @@
    sudo fdisk /dev/xvdf
    sudo mkfs -t ext4 /dev/xvdf
    sudo mkdir /nfs_share
+   sudo chown -R nobody:nogroup /nfs_share
+   sudo chmod -R 777 /nfs_share
    sudo mount /dev/xvdf /nfs_share
    echo "/dev/xvdf /nfs_share ext4 defaults,nofail 0 2" | sudo tee -a /etc/fstab
    
@@ -14,13 +16,13 @@
    sudo apt update && sudo apt install nfs-server
    sudo systemctl enable nfs-server
    sudo systemctl start nfs-server
-   echo "/nfs_share *(rw,sync,no_subtree_check)" >> /etc/exports
+   echo "/nfs_share *(rw,sync,no_root_squash)" >> /etc/exports
    sudo exportfs -rav
 
 ### 🖥️ On Server2-client:
 1. Install nfs client and Mount
    sudo mkdir /mnt/shares
    sudo apt update && sudo apt install nfs-server 
-   sudo mount server1_ip:/data /mnt/shares
+   sudo mount server1_ip:/nfs_share /mnt/shares
    df -h
    
