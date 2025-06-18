@@ -3,7 +3,7 @@
 
 ### 🖥️ On Server1:
 1. Attach, Create Partitionand and Mount EBS:
-   ```bash
+   ``bash
    sudo fdisk /dev/xvdf
    sudo mkfs -t ext4 /dev/xvdf
    sudo mkdir /nfs_share
@@ -25,4 +25,5 @@
    sudo apt update && sudo apt install nfs-server 
    sudo mount server1_ip:/nfs_share /mnt/shares
    df -h
-   
+
+
